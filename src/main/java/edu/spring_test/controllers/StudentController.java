@@ -7,9 +7,11 @@ import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -34,6 +36,24 @@ public class StudentController {
         return response;
     }
 
+    @PostMapping
+    public ResponseEntity<Integer> newStudent(String name, Integer group, Float gpa) {
+        ResponseEntity<Integer> response;
+        Student new_student = new Student();
+        new_student.setName(name);
+        new_student.setGroup(group);
+        new_student.setGpa(gpa);
+        Student result_student = studentRepository.saveAndFlush(new_student);
+        response = new ResponseEntity<>(result_student.getId(), HttpStatus.OK);
+        return response;
+    }
 
+    @GetMapping("/all")
+    public ResponseEntity<List<Student>> getAllStudents() {
+        ResponseEntity<List<Student>> response;
+        List<Student> student_list = studentRepository.findAll();
+        response = new ResponseEntity<>(student_list, HttpStatus.OK);
+        return response;
+    }
 
 }
