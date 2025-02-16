@@ -14,11 +14,6 @@ public class SimpleController {
 
     @GetMapping("/sum")
     public int testSum(int a, int b) {
-        Student student_1 = new Student();
-        student_1.setName("Mark");
-        student_1.setGroup(3);
-        student_1.setGpa(3.0f);
-        Student student_2 = studentRepository.saveAndFlush(student_1);
         return a + b;
     }
 
