@@ -3,13 +3,9 @@ package edu.spring_test.controllers;
 import edu.spring_test.jpa.entities.Student;
 import edu.spring_test.jpa.repositories.StudentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
@@ -18,12 +14,10 @@ import java.util.Optional;
 @RequestMapping("/student")
 public class StudentController {
 
-    // 3 methods: save new student, get student by id, get all students
-
     @Autowired
     StudentRepository studentRepository;
 
-    @GetMapping
+    @GetMapping("/get")
     public ResponseEntity<Student> getStudent(int id) {
         ResponseEntity<Student> response;
         Optional<Student> optional_student = studentRepository.findById(id);
@@ -36,7 +30,7 @@ public class StudentController {
         return response;
     }
 
-    @PostMapping
+    @PostMapping("/new")
     public ResponseEntity<Integer> newStudent(String name, Integer group, Float gpa) {
         ResponseEntity<Integer> response;
         Student new_student = new Student();
@@ -53,6 +47,38 @@ public class StudentController {
         ResponseEntity<List<Student>> response;
         List<Student> student_list = studentRepository.findAll();
         response = new ResponseEntity<>(student_list, HttpStatus.OK);
+        return response;
+    }
+
+    @PostMapping("/update")
+    public ResponseEntity<Student> editStudent(Integer id, String name, Integer group, Float gpa) {
+        ResponseEntity<Student> response;
+        Optional<Student> optional_student = studentRepository.findById(id);
+        if (optional_student.isPresent()) {
+            Student student = optional_student.get();
+            student.setName(name);
+            student.setGroup(group);
+            student.setGpa(gpa);
+            Student result_student = studentRepository.saveAndFlush(student);
+            response = new ResponseEntity<>(result_student, HttpStatus.OK);
+        } else {
+            response = new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        return response;
+    }
+
+    @DeleteMapping("/delete")
+    public ResponseEntity<List<Student>> deleteEntry(Integer id) {
+        ResponseEntity<List<Student>> response;
+        Optional<Student> optional_student = studentRepository.findById(id);
+        if (optional_student.isPresent()) {
+            Student to_delete = optional_student.get();
+            studentRepository.delete(to_delete);
+            List<Student> student_list = studentRepository.findAll();
+            response = new ResponseEntity<>(student_list, HttpStatus.OK);
+        } else {
+            response = new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
         return response;
     }
 
