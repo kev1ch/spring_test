@@ -1,0 +1,46 @@
+package edu.spring_test.controllers;
+
+import edu.spring_test.jpa.entities.Course;
+import edu.spring_test.jpa.repositories.CourseRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import java.util.Optional;
+
+@RestController
+@RequestMapping("/course")
+public class CourseController {
+
+    @Autowired
+    CourseRepository courseRepository;
+
+    @GetMapping("/get")
+    public ResponseEntity<Course> getCourse(String code) {
+        ResponseEntity<Course> response;
+        Optional<Course> optional_course = courseRepository.findById(code);
+        if (optional_course.isPresent()) {
+            Course course = optional_course.get();
+            response = new ResponseEntity<>(course, HttpStatus.OK);
+        } else {
+            response = new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        return response;
+    }
+
+    @PostMapping("/new")
+    public ResponseEntity<String> newCourse(String code, String name) {
+        ResponseEntity<String> response;
+        Course new_course = new Course();
+        new_course.setCode(code);
+        new_course.setName(name);
+        Course result_course = courseRepository.saveAndFlush(new_course);
+        response = new ResponseEntity<>(result_course.getCode(), HttpStatus.OK);
+        return response;
+    }
+
+}
