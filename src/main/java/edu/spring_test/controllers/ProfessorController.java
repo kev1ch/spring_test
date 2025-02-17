@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -39,6 +40,14 @@ public class ProfessorController {
         new_professor.setName(name);
         Professor result_professor = professorRepository.saveAndFlush(new_professor);
         response = new ResponseEntity<>(result_professor.getId(), HttpStatus.OK);
+        return response;
+    }
+
+    @GetMapping("/all")
+    public ResponseEntity<List<Professor>> getAllProfessors() {
+        ResponseEntity<List<Professor>> response;
+        List<Professor> professor_list = professorRepository.findAll();
+        response = new ResponseEntity<>(professor_list, HttpStatus.OK);
         return response;
     }
 

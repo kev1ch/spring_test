@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -40,6 +41,14 @@ public class CourseController {
         new_course.setName(name);
         Course result_course = courseRepository.saveAndFlush(new_course);
         response = new ResponseEntity<>(result_course.getCode(), HttpStatus.OK);
+        return response;
+    }
+
+    @GetMapping("/all")
+    public ResponseEntity<List<Course>> getAllCourses() {
+        ResponseEntity<List<Course>> response;
+        List<Course> course_list = courseRepository.findAll();
+        response = new ResponseEntity<>(course_list, HttpStatus.OK);
         return response;
     }
 
