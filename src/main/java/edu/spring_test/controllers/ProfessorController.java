@@ -5,10 +5,7 @@ import edu.spring_test.jpa.repositories.ProfessorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
@@ -48,6 +45,21 @@ public class ProfessorController {
         ResponseEntity<List<Professor>> response;
         List<Professor> professor_list = professorRepository.findAll();
         response = new ResponseEntity<>(professor_list, HttpStatus.OK);
+        return response;
+    }
+
+    @DeleteMapping("/delete")
+    public ResponseEntity<List<Professor>> deleteEntry(Integer id) {
+        ResponseEntity<List<Professor>> response;
+        Optional<Professor> optional_professor = professorRepository.findById(id);
+        if (optional_professor.isPresent()) {
+            Professor to_delete = optional_professor.get();
+            professorRepository.delete(to_delete);
+            List<Professor> professor_list = professorRepository.findAll();
+            response = new ResponseEntity<>(professor_list, HttpStatus.OK);
+        } else {
+            response = new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
         return response;
     }
 

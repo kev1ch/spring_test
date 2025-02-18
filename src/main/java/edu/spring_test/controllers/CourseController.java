@@ -5,10 +5,7 @@ import edu.spring_test.jpa.repositories.CourseRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
@@ -49,6 +46,21 @@ public class CourseController {
         ResponseEntity<List<Course>> response;
         List<Course> course_list = courseRepository.findAll();
         response = new ResponseEntity<>(course_list, HttpStatus.OK);
+        return response;
+    }
+
+    @DeleteMapping("/delete")
+    public ResponseEntity<List<Course>> deleteEntry(String code) {
+        ResponseEntity<List<Course>> response;
+        Optional<Course> optional_course = courseRepository.findById(code);
+        if (optional_course.isPresent()) {
+            Course to_delete = optional_course.get();
+            courseRepository.delete(to_delete);
+            List<Course> course_list = courseRepository.findAll();
+            response = new ResponseEntity<>(course_list, HttpStatus.OK);
+        } else {
+            response = new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
         return response;
     }
 
