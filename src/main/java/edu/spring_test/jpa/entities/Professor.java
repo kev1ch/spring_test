@@ -1,5 +1,6 @@
 package edu.spring_test.jpa.entities;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -20,6 +21,7 @@ public class Professor {
             joinColumns = @JoinColumn(name = "professor_id"),
             inverseJoinColumns = @JoinColumn(name = "course_id")
     )
+    @JsonManagedReference
     private List<Course> courses;
 
 }
