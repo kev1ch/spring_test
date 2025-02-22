@@ -1,7 +1,7 @@
-package edu.spring_test.controllers;
+package edu.spring_practice.controllers;
 
-import edu.spring_test.jpa.entities.Student;
-import edu.spring_test.jpa.repositories.StudentRepository;
+import edu.spring_practice.jpa.entities.Student;
+import edu.spring_practice.jpa.repositories.StudentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

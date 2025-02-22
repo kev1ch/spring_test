@@ -1,8 +1,8 @@
-package edu.spring_test.controllers;
+package edu.spring_practice.controllers;
 
-import edu.spring_test.jpa.entities.Professor;
-import edu.spring_test.jpa.repositories.ProfessorRepository;
-import edu.spring_test.services.ProfessorService;
+import edu.spring_practice.jpa.entities.Professor;
+import edu.spring_practice.jpa.repositories.ProfessorRepository;
+import edu.spring_practice.services.ProfessorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

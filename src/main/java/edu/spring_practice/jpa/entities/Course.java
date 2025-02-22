@@ -1,4 +1,4 @@
-package edu.spring_test.jpa.entities;
+package edu.spring_practice.jpa.entities;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.Entity;
