@@ -1,9 +1,9 @@
-package edu.spring_test.services;
+package edu.spring_practice.services;
 
-import edu.spring_test.jpa.entities.Course;
-import edu.spring_test.jpa.entities.Professor;
-import edu.spring_test.jpa.repositories.CourseRepository;
-import edu.spring_test.jpa.repositories.ProfessorRepository;
+import edu.spring_practice.jpa.entities.Course;
+import edu.spring_practice.jpa.entities.Professor;
+import edu.spring_practice.jpa.repositories.CourseRepository;
+import edu.spring_practice.jpa.repositories.ProfessorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
