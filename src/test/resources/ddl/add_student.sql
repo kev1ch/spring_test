@@ -1,0 +1,1 @@
+insert into student (id, name, group_num, gpa) value (9, 'Ben', 6, 3.6), (8, 'Sam', 6, 3.5);
