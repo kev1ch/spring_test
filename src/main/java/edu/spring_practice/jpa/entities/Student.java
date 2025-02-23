@@ -7,12 +7,14 @@ import lombok.NoArgsConstructor;
 
 @Data
 @Entity
+@Table(name = "student")
 @AllArgsConstructor
 @NoArgsConstructor
 public class Student {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private Integer id;
     private String name;
     @Column(name = "group_num")
