@@ -30,4 +30,14 @@ public class ProfessorService {
         return result_professor;
     }
 
+    public int getProfQuantity() {
+        List<Professor> prof_list = professorRepository.findAll();
+        // some logic...
+        return prof_list.size();
+    }
+
+    public int getSum(int num_1, int num_2) {
+        return num_1 + num_2;
+    }
+
 }
